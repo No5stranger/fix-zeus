@@ -1,0 +1,28 @@
+{
+    "name": "eleme/fix_zues",
+    "description": "just want to hack zeus data",
+    "authors": [
+        {
+            "name": "cjp",
+            "email": "No5stranger@gmail.com"
+        }
+    ],
+    "require": {
+        "PHP": ">=5.3.3",
+        "eleme/thrift-php": "0.9.1",
+        "fzaninotto/faker": "1.4.0"
+    },
+    "require-dev": {
+        "raveren/kint": "1.0.*@dev",
+        "phpunit/phpunit": "4.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fixzeus\\": "src",
+            "Fixzeus\\Model\\": "src/model"
+        },
+        "classmap": [
+            "thrift/packages"
+        ]
+    }
+}
