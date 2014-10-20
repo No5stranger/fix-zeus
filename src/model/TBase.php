@@ -2,13 +2,15 @@
 namespace Fixzeus\Model;
 
 use Exception;
-use Faker\Factory;
+use Fixzeus\Model\TType;
+use Faker\Factory as fakerFactory;
 use Faker\Provider\Base;
 use Faker\Provider\Lorem;
+use Faker\Provider\zh_CN\Address;
 
 class TBase
 {
-    private static $tType = array(
+    public static $tType = array(
         TType::BOOL => 'bool',
         TType::BYTE => '8integer',
         TType::I16 => '16integer',
@@ -26,17 +28,11 @@ class TBase
         '64integer' => 2147483648
     );
 
-    private $faker;
-
-    public function __construct()
+    public static function get(array $tspec)
     {
-        $this->faker = Factory::create();
-    }
-
-    public function get(array $tspec)
-    {
-        $base = new Base($this->faker);
-        $lorem = new Lorem($this->faker);
+        $faker = fakerFactory::create();
+        $base = new Base($faker);
+        $lorem = new Lorem($faker);
         if (!isset($tspec['var']) || !isset($tspec['type'])) {
             return new Exception('unvalid value');
         }
@@ -48,6 +44,10 @@ class TBase
                     $max = self::$intRange[self::$tType[$tspec['type']]]
                 )
             );
+        }
+
+        if ($rData = self::reviseData($tspec['var'])) {
+            return array($tspec['var'] => $rData);
         }
 
         switch ($tspec['type']) {
@@ -63,5 +63,27 @@ class TBase
             default:
                 return new Exception('unvalid value');
         }
+    }
+
+    private static function reviseData($var)
+    {
+        $faker = fakerFactory::create();
+        $address = new Address($faker);
+        if (preg_match("/latitude/i", $var)) {
+            return $address->latitude();
+        }
+        if (preg_match("/longitude/i", $var)) {
+            return $address->longitude();
+        }
+        if (preg_match("/address/i", $var)) {
+            return $address->address();
+        }
+        if (preg_match("/city/i", $var)) {
+            return $address->city();
+        }
+        if (preg_match("/name/i", $var)) {
+            return $faker->name;
+        }
+        return false;
     }
 }

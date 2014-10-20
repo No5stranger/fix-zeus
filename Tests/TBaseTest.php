@@ -58,13 +58,14 @@ class TBaseTest extends PHPUnit_Framework_TestCase
                     'var' => 'unknow',
                     'type' => 99
                 )
+            ),
+            array(
+                array(
+                    'rav' => 'abc',
+                    'type' => 99
+                )
             )
         );
-    }
-
-    public function testConstruct()
-    {
-        $this->assertInstanceOf('Fixzeus\Model\TBase', new TBase());
     }
 
     /**
@@ -72,8 +73,7 @@ class TBaseTest extends PHPUnit_Framework_TestCase
      */
     public function testGet($tBaseData)
     {
-        $tBase = new TBase();
-        $fixData = $tBase->get($tBaseData);
+        $fixData = TBase::get($tBaseData);
         if (in_array($tBaseData['type'], array(TType::BYTE, TType::I16, TType::I32, TType::I64))) {
             $this->assertInternalType('integer', $fixData[$tBaseData['var']]);
             return true;
