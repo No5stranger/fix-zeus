@@ -14,5 +14,10 @@
         <testsuite name="fix-zeus Test Suite">
             <directory>Tests</directory>
         </testsuite>
+        <filter>
+            <blacklist>
+                <directory suffix=".php">Tests</directory>
+            </blacklist>
+        </filter>
     </testsuites>
 </phpunit>
