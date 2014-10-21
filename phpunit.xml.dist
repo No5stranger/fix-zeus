@@ -17,6 +17,9 @@
         <filter>
             <blacklist>
                 <directory suffix=".php">Tests</directory>
+                <exclude>
+                    <directory>vendor</directory>
+                </exclude>
             </blacklist>
         </filter>
     </testsuites>
