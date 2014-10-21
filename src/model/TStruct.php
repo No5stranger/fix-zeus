@@ -20,6 +20,6 @@ class TStruct
         for ($i = 1; $i <= $_TSPECLength; $i++) {
             $struct = array_merge($struct, TBase::get($_TSPEC[$i]));
         }
-        return $struct;
+        return new $tspec['class']($struct);
     }
 }
