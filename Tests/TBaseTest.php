@@ -2,6 +2,7 @@
 namespace Fixzeus\Tests;
 
 use PHPUnit_Framework_TestCase;
+use Mockery;
 use Exception;
 use Fixzeus\Model\TType;
 use Fixzeus\Model\TBase;

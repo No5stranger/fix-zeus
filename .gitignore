@@ -3,3 +3,4 @@ composer.phar
 composer.lock
 vendor/
 thrift/
+src/model/Service.php
