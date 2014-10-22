@@ -1,6 +1,7 @@
 <?php
 namespace Fixzeus\Tests;
 
+use Exception;
 use PHPUnit_Framework_TestCase;
 use Fixzeus\Model\TType;
 use Fixzeus\Model\TLst;
@@ -10,6 +11,12 @@ class TLstTest extends PHPUnit_Framework_TestCase
     public function lstDataProvider()
     {
         return array(
+            array(
+                array(
+                    'var' => 'fail',
+                    'type' => TType::LST,
+                )
+            ),
             array(
                 array(
                     'var' => 'success',
@@ -68,6 +75,10 @@ class TLstTest extends PHPUnit_Framework_TestCase
      */
     public function testGetLst($lstData)
     {
+        if ($lstData['var'] === 'fail') {
+            $this->assertInstanceOf('Exception', TLst::getLst($lstData));
+            return true;
+        }
         $this->assertInternalType('array', TLst::getLst($lstData));
     }
 }
