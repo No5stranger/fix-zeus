@@ -45,7 +45,10 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testFix($fixData)
     {
-        //d($fixData['service'], $fixData['method']);
+        if ($fixData['type'] === 'struct') {
+            $this->assertInternalType('object', Factory::fix($fixData['service'], $fixData['method']));
+            return true;
+        }
         $this->assertInternalType('array', Factory::fix($fixData['service'], $fixData['method']));
     }
 }
