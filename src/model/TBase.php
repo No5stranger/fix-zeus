@@ -38,17 +38,20 @@ class TBase
             return new Exception('unvalid value');
         }
 
+        if ($rData = self::reviseData($tspec['var'])) {
+            return array($tspec['var'] => $rData);
+        }
+
         if (in_array($tspec['type'], array(TType::BYTE, TType::I16, TType::I32, TType::I64))) {
+            if (preg_match("/is_/i", $tspec['var'])) {
+                return array($tspec['var'] => self::getBool(true));
+            }
             return array(
                 $tspec['var'] => $base->numberBetween(
                     $min = self::$intRange['start'],
                     $max = self::$intRange[self::$tType[$tspec['type']]]
                 )
             );
-        }
-
-        if ($rData = self::reviseData($tspec['var'])) {
-            return array($tspec['var'] => $rData);
         }
 
         switch ($tspec['type']) {
@@ -87,14 +90,11 @@ class TBase
         if (preg_match("/name/i", $var)) {
             return $faker->name;
         }
-        if (preg_match("/is_/i", $var)) {
-            return self::getBool();
-        }
         if (preg_match("/(created_at|time)/i", $var)) {
             return (string)$dateTime->unixTime($max = 'now');
         }
         if (preg_match("/pguid/i", $var)) {
-            return strtoupper($base->numerify($stirng = '#?##??###?#'));
+            return strtoupper($base->bothify($stirng = '#?##??###?#'));
         }
         if (preg_match("/(mobile|phone)/i", $var)) {
             return '138' . $base->numerify($string = '########');
@@ -102,10 +102,14 @@ class TBase
         return false;
     }
 
-    private static function getBool()
+    private static function getBool($int = false)
     {
         $faker = fakerFactory::create();
         $base = new Base($faker);
-        return 1 === $base->numberBetween($min = 0, $max = 1);
+        if ($int) {
+            return $base->numberBetween($min = 0, $max = 1);
+        } else {
+            return 1 === $base->numberBetween($min = 0, $max = 1);
+        }
     }
 }

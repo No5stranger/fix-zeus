@@ -37,6 +37,13 @@ class FactoryTest extends PHPUnit_Framework_TestCase
                     'method' => 'query_rrc_region'
                 )
             ),
+            array(
+                array(
+                    'type' => 'struct', //just mark type
+                    'service' => 'eus',
+                    'method' => 'get'
+                )
+            ),
         );
     }
 

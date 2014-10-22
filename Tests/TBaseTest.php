@@ -68,8 +68,8 @@ class TBaseTest extends PHPUnit_Framework_TestCase
             ),
             array(
                 array(
-                    'var' => 'is_xxx',
-                    'type' => TType::BOOL
+                    'var' => 'is_active',
+                    'type' => TType::STRING
                 )
             ),
             array(
