@@ -25,6 +25,6 @@ class TStructTest extends PHPUnit_Framework_TestCase
      */
     public function testGetStruct($structData)
     {
-        //$this->assertInternalType('array', TStruct::getStruct($structData));
+        $this->assertInternalType('object', TStruct::getStruct($structData));
     }
 }
