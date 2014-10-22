@@ -44,7 +44,7 @@ class Factory
         }
     }
 
-    private static function getValueType($_TSPEC)
+    public static function getValueType($_TSPEC)
     {
         return $_TSPEC[0]['type'];
     }

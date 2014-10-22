@@ -56,6 +56,42 @@ class TBaseTest extends PHPUnit_Framework_TestCase
             ),
             array(
                 array(
+                    'var' => 'latitude',
+                    'type' => TType::DOUBLE
+                )
+            ),
+            array(
+                array(
+                    'var' => 'longitude',
+                    'type' => TType::DOUBLE
+                )
+            ),
+            array(
+                array(
+                    'var' => 'is_xxx',
+                    'type' => TType::BOOL
+                )
+            ),
+            array(
+                array(
+                    'var' => 'created_at',
+                    'type' => TType::STRING
+                )
+            ),
+            array(
+                array(
+                    'var' => 'pguid',
+                    'type' => TType::STRING
+                )
+            ),
+            array(
+                array(
+                    'var' => 'mobile',
+                    'type' => TType::STRING
+                )
+            ),
+            array(
+                array(
                     'var' => 'unknow',
                     'type' => 99
                 )
