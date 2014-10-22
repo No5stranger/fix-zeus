@@ -14,13 +14,10 @@
         <testsuite name="fix-zeus Test Suite">
             <directory>Tests</directory>
         </testsuite>
-        <filter>
-            <blacklist>
-                <directory suffix=".php">Tests</directory>
-                <exclude>
-                    <directory>vendor</directory>
-                </exclude>
-            </blacklist>
-        </filter>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
 </phpunit>

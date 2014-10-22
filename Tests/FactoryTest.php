@@ -51,4 +51,12 @@ class FactoryTest extends PHPUnit_Framework_TestCase
         }
         $this->assertInternalType('array', Factory::fix($fixData['service'], $fixData['method']));
     }
+
+    /**
+     * @dataProvider fixDataProvider
+     */
+    public function testGetValueType($fixData)
+    {
+        $this->assertEquals(Factory::getValueType(array($fixData)), $fixData['type']);
+    }
 }
