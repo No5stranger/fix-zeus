@@ -12,36 +12,29 @@ class FactoryTest extends PHPUnit_Framework_TestCase
             array(
                 array(
                     'type' => 'base', //just mark type
-                    'service' => 'geos',
+                    'service' => 'gfix',
                     'method' => 'ping'
                 )
             ),
             array(
                 array(
                     'type' => 'struct', //just mark type
-                    'service' => 'geos',
-                    'method' => 'get_poi'
+                    'service' => 'gfix',
+                    'method' => 'get_tp'
                 )
             ),
             array(
                 array(
                     'type' => 'map', //just mark type
-                    'service' => 'geos',
-                    'method' => 'mcount_restaurant_by_position'
+                    'service' => 'gfix',
+                    'method' => 'mcount_tp'
                 )
             ),
             array(
                 array(
                     'type' => 'lst', //just mark type
-                    'service' => 'geos',
-                    'method' => 'query_rrc_region'
-                )
-            ),
-            array(
-                array(
-                    'type' => 'struct', //just mark type
-                    'service' => 'eus',
-                    'method' => 'get'
+                    'service' => 'gfix',
+                    'method' => 'query_tr'
                 )
             ),
         );

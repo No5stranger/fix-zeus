@@ -2,4 +2,4 @@ npm-debug.log
 composer.phar
 composer.lock
 vendor/
-thrift/
+thrift/packages/

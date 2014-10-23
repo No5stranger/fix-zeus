@@ -24,7 +24,7 @@ class TLstTest extends PHPUnit_Framework_TestCase
                     'etype' => TType::STRUCT,
                     'elem' => array(
                         'type' => TType::STRUCT,
-                        'class' => '\GEOS\TRrcRegion'
+                        'class' => '\GFIX\Tr'
                     )
                 )
             ),
@@ -35,7 +35,7 @@ class TLstTest extends PHPUnit_Framework_TestCase
                     'etype' => TType::STRUCT,
                     'elem' => array(
                         'type' => TType::STRUCT,
-                        'class' => '\GEOS\TRrcRegionRanking'
+                        'class' => '\GFIX\Tr'
                     )
                 )
             ),
