@@ -8,7 +8,7 @@ build:
 
 build-zeus:
 	@echo ">-------- building the zeus --------<"
-	rm -rf thrift/packages/*
+	mkdir thrift/packages
 	thrift -nowarn --gen php:opp -out thrift/packages/ thrift/gfix.thrift
 
 update:
