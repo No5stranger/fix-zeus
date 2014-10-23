@@ -14,7 +14,7 @@ class TStructTest extends PHPUnit_Framework_TestCase
                 array(
                     'var' => 'success',
                     'type' => TType::STRUCT,
-                    'class' => '\GEOS\TPoi'
+                    'class' => '\GFIX\Tp'
                 )
             )
         );

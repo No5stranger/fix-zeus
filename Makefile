@@ -1,10 +1,15 @@
 composer:
-	echo ">-------- get composer.phar --------"
+	@echo ">-------- get composer.phar --------"
 	curl -sS https://getcomposer.org/installer | php
 
 build:
-	echo ">-------- building the environment --------<"
+	@echo ">-------- building the environment --------<"
 	php composer.phar install
+
+build-zeus:
+	@echo ">-------- building the zeus --------<"
+	rm -rf thrift/packages/*
+	thrift -nowarn --gen php:opp -out thrift/packages/ thrift/gfix.thrift
 
 update:
 	echo ">-------- update packages --------<"
@@ -17,3 +22,7 @@ test:
 test-with-coverage:
 	@echo ">-------- phpunit testing --------<"
 	vendor/bin/phpunit -c phpunit.xml.dist --coverage-text
+
+clean-test:
+	@echo ">-------- clear tmp test file --------<"
+	rm -rf thrift/packages/*
