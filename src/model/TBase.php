@@ -3,6 +3,7 @@ namespace Fixzeus\Model;
 
 use Exception;
 use Fixzeus\Model\TType;
+use Fixzeus\Model\TSpecial;
 use Faker\Factory as fakerFactory;
 use Faker\Provider\Base;
 use Faker\Provider\Lorem;
@@ -38,13 +39,13 @@ class TBase
             return new Exception('unvalid value');
         }
 
-        if ($rData = self::reviseData($tspec['var'])) {
+        if ($rData = TSpecial::reviseData($tspec['var'])) {
             return array($tspec['var'] => $rData);
         }
 
         if (in_array($tspec['type'], array(TType::BYTE, TType::I16, TType::I32, TType::I64))) {
             if (preg_match("/is_/i", $tspec['var'])) {
-                return array($tspec['var'] => self::getBool(true));
+                return array($tspec['var'] => TSpecial::getBool(true));
             }
             return array(
                 $tspec['var'] => $base->numberBetween(
@@ -56,7 +57,7 @@ class TBase
 
         switch ($tspec['type']) {
             case TType::BOOL:
-                return array($tspec['var'] => self::getBool());
+                return array($tspec['var'] => TSpecial::getBool());
                 break;
             case TType::DOUBLE:
                 return array($tspec['var'] => $base->randomFloat());
@@ -66,50 +67,6 @@ class TBase
                 break;
             default:
                 return new Exception('unvalid value');
-        }
-    }
-
-    private static function reviseData($var)
-    {
-        $faker = fakerFactory::create();
-        $base = new Base($faker);
-        $address = new Address($faker);
-        $dateTime = new DateTime($faker);
-        if (preg_match("/latitude/i", $var)) {
-            return 180 + $address->latitude();
-        }
-        if (preg_match("/longitude/i", $var)) {
-            return (float)$address->longitude();
-        }
-        if (preg_match("/address/i", $var)) {
-            return $address->address();
-        }
-        if (preg_match("/city/i", $var)) {
-            return $address->city();
-        }
-        if (preg_match("/name/i", $var)) {
-            return $faker->name;
-        }
-        if (preg_match("/(created_at|time)/i", $var)) {
-            return (string)$dateTime->unixTime($max = 'now');
-        }
-        if (preg_match("/pguid/i", $var)) {
-            return strtoupper($base->bothify($stirng = '#?##??###?#'));
-        }
-        if (preg_match("/(mobile|phone)/i", $var)) {
-            return '138' . $base->numerify($string = '########');
-        }
-        return false;
-    }
-
-    private static function getBool($int = false)
-    {
-        $faker = fakerFactory::create();
-        $base = new Base($faker);
-        if ($int) {
-            return $base->numberBetween($min = 0, $max = 1);
-        } else {
-            return 1 === $base->numberBetween($min = 0, $max = 1);
         }
     }
 }
