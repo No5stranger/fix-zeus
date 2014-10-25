@@ -10,14 +10,27 @@ class TSpecial
 {
     public static function customize($path, $var)
     {
-        if (!file_exists($path) || !$jsonData = file_get_contents($path)) {
+        if (!$specialData = self::getFileContent($path)) {
             return false;
         }
-        $specialData = json_decode($jsonData);
         $define_value = $specialData->define_value;
         foreach ($define_value as $k => $v) {
             if ($k === $var) {
                 return $v;
+            }
+        }
+        return false;
+    }
+
+    public static function rangeValue($path, $var)
+    {
+        if (!$specialData = self::getFileContent($path)) {
+            return false;
+        }
+        $range_value = $specialData->range_value;
+        foreach ($range_value as $k => $v) {
+            if ($k === $v) {
+                return self::getRangeValue($range_value->$k);
             }
         }
         return false;
@@ -64,6 +77,27 @@ class TSpecial
             return $base->numberBetween($min = 0, $max = 1);
         } else {
             return 1 === $base->numberBetween($min = 0, $max = 1);
+        }
+    }
+
+    private function getFileContent($path)
+    {
+        if (!file_exists($path) || !$jsonData = file_get_contents($path)) {
+            return false;
+        }
+        return json_decode($jsonData);
+    }
+
+    private function getRangeValue($jsonValue)
+    {
+        $faker = fakerFactory::create();
+        $base = new Base($faker);
+        switch ($jsonValue->type) {
+            case 'int':
+                return $base->numberBetween($jsonValue->min, $jsonValue->max);
+                break;
+            default:
+                return false;
         }
     }
 }
