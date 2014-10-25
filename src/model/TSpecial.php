@@ -15,11 +15,9 @@ class TSpecial
         }
         $specialData = json_decode($jsonData);
         $define_value = $specialData->define_value;
-        for ($i = 0; $i < count($define_value); $i++) {
-            foreach ($define_value[$i] as $k => $v) {
-                if ($k === $var) {
-                    return $v;
-                }
+        foreach ($define_value as $k => $v) {
+            if ($k === $var) {
+                return $v;
             }
         }
         return false;

@@ -1,8 +1,6 @@
 {
-    "define_value": [
-        {
-            "name": "cjp",
-            "age": "22"
-        }
-    ]
+    "define_value": {
+        "name": "cjp",
+        "age": "22"
+    }
 }
