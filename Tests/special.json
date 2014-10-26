@@ -1,8 +1,37 @@
 {
-    "define_value": [
-        {
-            "name": "cjp",
-            "age": "22"
+    "define_value": {
+        "name": "cjp",
+        "age": "22"
+    },
+    "range_value": {
+        "integer": {
+            "type": "integer",
+            "min": "1",
+            "max": "10"
+        },
+        "date": {
+            "type": "date",
+            "format": "Y-m-d",
+            "max": "2014-11-11"
+        },
+        "time": {
+            "type": "time",
+            "format": "H:i:s",
+            "max": "22:22:22"
+        },
+        "datetime": {
+            "type": "datetime",
+            "format": "Y-m-d H:i:s",
+            "min": "2013-11-11 22:22:22",
+            "max": "2014-11-11 22:22:22"
+        },
+        "unixtime": {
+            "type": "unixtime",
+            "max": "now"
+        },
+        "user_agent": {
+            "type": "userAgent",
+            "value": "chrome"
         }
-    ]
+    }
 }

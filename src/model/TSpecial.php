@@ -5,21 +5,33 @@ use Faker\Factory as fakerFactory;
 use Faker\Provider\Base;
 use Faker\Provider\zh_CN\Address;
 use Faker\Provider\DateTime;
+use Faker\Provider\UserAgent;
 
 class TSpecial
 {
     public static function customize($path, $var)
     {
-        if (!file_exists($path) || !$jsonData = file_get_contents($path)) {
+        if (!$specialData = self::getFileContent($path)) {
             return false;
         }
-        $specialData = json_decode($jsonData);
         $define_value = $specialData->define_value;
-        for ($i = 0; $i < count($define_value); $i++) {
-            foreach ($define_value[$i] as $k => $v) {
-                if ($k === $var) {
-                    return $v;
-                }
+        foreach ($define_value as $k => $v) {
+            if ($k === $var) {
+                return $v;
+            }
+        }
+        return false;
+    }
+
+    public static function rangeValue($path, $var)
+    {
+        if (!$specialData = self::getFileContent($path)) {
+            return false;
+        }
+        $range_value = $specialData->range_value;
+        foreach ($range_value as $k => $v) {
+            if ($k === $var) {
+                return self::getRangeValue($range_value->$k);
             }
         }
         return false;
@@ -66,6 +78,50 @@ class TSpecial
             return $base->numberBetween($min = 0, $max = 1);
         } else {
             return 1 === $base->numberBetween($min = 0, $max = 1);
+        }
+    }
+
+    private function getFileContent($path)
+    {
+        if (!file_exists($path) || !$jsonData = file_get_contents($path)) {
+            return false;
+        }
+        return json_decode($jsonData);
+    }
+
+    private function getRangeValue($jsonValue)
+    {
+        $faker = fakerFactory::create();
+        $base = new Base($faker);
+        $dateTime = new DateTime($faker);
+        $userAgent = new UserAgent($faker);
+        switch ($jsonValue->type) {
+            case 'integer':
+                return $base->numberBetween($jsonValue->min, $jsonValue->max);
+                break;
+            case 'date':
+                return $dateTime->date($jsonValue->format, $jsonValue->max);
+                break;
+            case 'time':
+                return $dateTime->time($jsonValue->format, $jsonValue->max);
+                break;
+            case 'datetime':
+                $dateTimeArray = $dateTime->dateTimeBetween($jsonValue->min, $jsonValue->max);
+                foreach ($dateTimeArray as $k => $v) {
+                    if ($k === 'date') {
+                        return $v;
+                    }
+                }
+                return false;
+                break;
+            case 'unixtime':
+                return $dateTime->unixTime($jsonValue->max);
+                break;
+            case 'userAgent':
+                return call_user_func(array($userAgent, $jsonValue->value)) ;
+                break;
+            default:
+                return false;
         }
     }
 }
