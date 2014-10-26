@@ -5,6 +5,7 @@ use Faker\Factory as fakerFactory;
 use Faker\Provider\Base;
 use Faker\Provider\zh_CN\Address;
 use Faker\Provider\DateTime;
+use Faker\Provider\UserAgent;
 
 class TSpecial
 {
@@ -29,7 +30,7 @@ class TSpecial
         }
         $range_value = $specialData->range_value;
         foreach ($range_value as $k => $v) {
-            if ($k === $v) {
+            if ($k === $var) {
                 return self::getRangeValue($range_value->$k);
             }
         }
@@ -92,9 +93,32 @@ class TSpecial
     {
         $faker = fakerFactory::create();
         $base = new Base($faker);
+        $dateTime = new DateTime($faker);
+        $userAgent = new UserAgent($faker);
         switch ($jsonValue->type) {
-            case 'int':
+            case 'integer':
                 return $base->numberBetween($jsonValue->min, $jsonValue->max);
+                break;
+            case 'date':
+                return $dateTime->date($jsonValue->format, $jsonValue->max);
+                break;
+            case 'time':
+                return $dateTime->time($jsonValue->format, $jsonValue->max);
+                break;
+            case 'datetime':
+                $dateTimeArray = $dateTime->dateTimeBetween($jsonValue->min, $jsonValue->max);
+                foreach ($dateTimeArray as $k => $v) {
+                    if ($k === 'date') {
+                        return $v;
+                    }
+                }
+                return false;
+                break;
+            case 'unixtime':
+                return $dateTime->unixTime($jsonValue->max);
+                break;
+            case 'userAgent':
+                return call_user_func(array($userAgent, $jsonValue->value)) ;
                 break;
             default:
                 return false;

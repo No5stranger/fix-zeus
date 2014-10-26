@@ -54,42 +54,42 @@ class TBaseTest extends PHPUnit_Framework_TestCase
                     'type' => TType::STRING
                 )
             ),
-            array(
-                array(
-                    'var' => 'latitude',
-                    'type' => TType::DOUBLE
-                )
-            ),
-            array(
-                array(
-                    'var' => 'longitude',
-                    'type' => TType::DOUBLE
-                )
-            ),
-            array(
-                array(
-                    'var' => 'is_active',
-                    'type' => TType::STRING
-                )
-            ),
-            array(
-                array(
-                    'var' => 'created_at',
-                    'type' => TType::STRING
-                )
-            ),
-            array(
-                array(
-                    'var' => 'pguid',
-                    'type' => TType::STRING
-                )
-            ),
-            array(
-                array(
-                    'var' => 'mobile',
-                    'type' => TType::STRING
-                )
-            ),
+            //array(
+                //array(
+                    //'var' => 'latitude',
+                    //'type' => TType::DOUBLE
+                //)
+            //),
+            //array(
+                //array(
+                    //'var' => 'longitude',
+                    //'type' => TType::DOUBLE
+                //)
+            //),
+            //array(
+                //array(
+                    //'var' => 'is_active',
+                    //'type' => TType::STRING
+                //)
+            //),
+            //array(
+                //array(
+                    //'var' => 'created_at',
+                    //'type' => TType::STRING
+                //)
+            //),
+            //array(
+                //array(
+                    //'var' => 'pguid',
+                    //'type' => TType::STRING
+                //)
+            //),
+            //array(
+                //array(
+                    //'var' => 'mobile',
+                    //'type' => TType::STRING
+                //)
+            //),
             array(
                 array(
                     'var' => 'unknow',
