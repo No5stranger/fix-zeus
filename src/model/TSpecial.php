@@ -9,6 +9,15 @@ use Faker\Provider\UserAgent;
 
 class TSpecial
 {
+    public static function defineValue($path, $var)
+    {
+        if ($v = self::customize($path, $var)) {
+            return $v;
+        } else {
+            return self::rangeValue($path, $var);
+        }
+    }
+
     public static function customize($path, $var)
     {
         if (!$specialData = self::getFileContent($path)) {
