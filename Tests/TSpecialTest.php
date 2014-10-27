@@ -6,6 +6,22 @@ use Fixzeus\Model\TSpecial;
 
 class TSpecialTest extends PHPUnit_Framework_TestCase
 {
+    public function defineValueDataProvider()
+    {
+        return array(
+            array(__DIR__ . '/special.json', 'name', 'string'),
+            array(__DIR__ . '/special.json', 'date', 'string')
+        );
+    }
+
+    /**
+     * @dataProvider defineValueDataProvider
+     */
+    public function testDefineValue($path, $var, $type)
+    {
+        $this->assertInternalType($type, TSpecial::defineValue($path, $var));
+    }
+
     public function reviseDataProvider()
     {
         return array(

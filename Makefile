@@ -25,4 +25,5 @@ test-with-coverage:
 
 clean-test:
 	@echo ">-------- clear tmp test file --------<"
+	echo '' > src/model/tmp_special
 	rm -rf thrift/packages/*

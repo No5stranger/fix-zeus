@@ -14,8 +14,14 @@ class Factory
     private static $_prefix = '\\';
     private static $_result = '_result';
 
-    public static function fix($service, $method)
+    private static $tmpFileName = "tmp_special";
+
+    public static function fix($service, $method, $path = null)
     {
+        if($path) {
+            file_put_contents(__DIR__ . '/model/' . self::$tmpFileName, $path);
+        }
+
         $class = self::$_prefix.
             strtoupper($service).
             self::$_prefix.

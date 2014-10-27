@@ -12,6 +12,8 @@ use Faker\Provider\DateTime;
 
 class TBase
 {
+    private static $tmpFileName = "tmp_special";
+
     public static $tType = array(
         TType::BOOL => 'bool',
         TType::BYTE => '8integer',
@@ -37,6 +39,12 @@ class TBase
         $lorem = new Lorem($faker);
         if (!isset($tspec['var']) || !isset($tspec['type'])) {
             return new Exception('unvalid value');
+        }
+
+        if (($path = file_get_contents(__DIR__ . '/' . self::$tmpFileName))
+            && $sData = TSpecial::defineValue($path, $tspec['var'])
+        ) {
+            return array($tspec['var'] => $rData);
         }
 
         if ($rData = TSpecial::reviseData($tspec['var'])) {
