@@ -3,13 +3,11 @@ composer:
 	curl -sS https://getcomposer.org/installer | php
 
 build:
-	@echo ">-------- building the environment --------<"
-	php composer.phar install
-
-build-zeus:
 	@echo ">-------- building the zeus --------<"
 	mkdir thrift/packages
 	thrift -nowarn --gen php:opp -out thrift/packages/ thrift/gfix.thrift
+	@echo ">-------- building the environment --------<"
+	php composer.phar install
 
 update:
 	echo ">-------- update packages --------<"
