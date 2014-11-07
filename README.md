@@ -13,18 +13,19 @@ fix-zeus
 "require": {
     "eleme/fix-zeus": "~0.1"
 }
+```
 
 ##Use fix-zeus to fix date
 * Base Usage:
 ```
+use Fixzeus\Factory;
+
 $nSpace = array(
     "namespace" => "thrift service name" . "_",
     "gfix" => "GfixService_" //example
 )
 $path  //the special file's absolute path, the json file format see below
-```
-```
-use Fixzeus\Factory;
+
 $fixZeusFactory = new Factory($nSpace, $path);
 $fixResutl = $fixZeusFactory->fix($service, $method);
 ```
