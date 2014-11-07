@@ -39,6 +39,10 @@ class Factory
         $obj = new $class;
         $_TSPEC = $obj::$_TSPEC;
 
+        if (self::getValueType($_TSPEC) === null) {
+            return null;
+        }
+
         if (in_array(self::getValueType($_TSPEC), array_keys(TBase::$tType))) {
             return TBase::get($_TSPEC[0]);
         }
@@ -60,6 +64,9 @@ class Factory
 
     public static function getValueType($_TSPEC)
     {
+        if (!isset($_TSPEC[0])) {
+            return null;
+        }
         return $_TSPEC[0]['type'];
     }
 }
