@@ -22,9 +22,6 @@
         "psr-4": {
             "Fixzeus\\": "src",
             "Fixzeus\\Model\\": "src/model"
-        },
-        "classmap": [
-            "thrift/packages"
-        ]
+        }
     }
 }

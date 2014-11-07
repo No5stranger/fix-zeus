@@ -11,7 +11,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 array(
-                    'type' => 'base', //just mark type
+                    'type' => 'base_bool', //just mark type
                     'service' => 'gfix',
                     'method' => 'ping'
                 )
@@ -45,11 +45,20 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testFix($fixData)
     {
+        $service = array(
+            'gfix' => 'GfixService_'
+        );
+        $path = __DIR__ . '/special.json';
+        $fixZeusFactory = new Factory($service, $path);
         if ($fixData['type'] === 'struct') {
-            $this->assertInternalType('object', Factory::fix($fixData['service'], $fixData['method']));
+            $this->assertInternalType('object', $fixZeusFactory->fix($fixData['service'], $fixData['method']));
             return true;
         }
-        $this->assertInternalType('array', Factory::fix($fixData['service'], $fixData['method']));
+        if ($fixData['type'] === 'base_bool') {
+            $this->assertInternalType('bool', $fixZeusFactory->fix($fixData['service'], $fixData['method']));
+            return true;
+        }
+        $this->assertInternalType('array', $fixZeusFactory->fix($fixData['service'], $fixData['method']));
     }
 
     /**

@@ -14,23 +14,23 @@ fix-zeus
     "eleme/fix-zeus": "~0.1"
 }
 ```
-* Config your namespace and thrift service in **src/model/Service.php**
-```
-    public static $nSpace = array(
-        "namespace" => "thrift service name" . "_",
-        "gfix" => "GfixService_" //example
-    );
-```
 
 ##Use fix-zeus to fix date
 * Base Usage:
 ```
 use Fixzeus\Factory;
-Factory::fix($service, $method, $path);
+
+$nSpace = array(
+    "namespace" => "thrift service name" . "_",
+    "gfix" => "GfixService_" //example
+)
+$path  //the special file's absolute path, the json file format see below
+
+$fixZeusFactory = new Factory($nSpace, $path);
+$fixResutl = $fixZeusFactory->fix($service, $method);
 ```
 * **$service**: the namespace you define in your thrift file
 * **$method**: the method you define in your thrift service
-* **$path**: your define value json file
 
 ###Customize or range a value
 To define a value you want, you just write a json file like below,
