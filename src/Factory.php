@@ -14,18 +14,26 @@ class Factory
     private static $_prefix = '\\';
     private static $_result = '_result';
 
-    private static $tmpFileName = "tmp_special";
+    private $service = array();
 
-    public static function fix($service, $method, $path = null)
+    public function __construct($service, $path = null)
     {
-        if($path) {
-            file_put_contents(__DIR__ . '/model/' . self::$tmpFileName, $path);
+        if (!$service || !is_array($service)) {
+            throw new Exception('unvalid parameter: service must be array');
+        }
+        $this->service = $service;
+
+        if($path && !defined('PATH')) {
+            define('PATH', $path);
         }
 
+    }
+    public function fix($service, $method)
+    {
         $class = self::$_prefix.
             strtoupper($service).
             self::$_prefix.
-            Service::$nSpace[$service].
+            $this->service[$service].
             $method.
             self::$_result;
         $obj = new $class;

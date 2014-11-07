@@ -81,7 +81,8 @@ class TBaseTest extends PHPUnit_Framework_TestCase
         }
         switch ($tBaseData['type']) {
             case TType::BOOL:
-                $this->assertInternalType('bool', $fixData[$tBaseData['var']]);
+                $this->assertInternalType('bool', $fixData);
+                //$this->assertInternalType('bool', $fixData[$tBaseData['var']]);
                 break;
             case TType::DOUBLE:
                 $this->assertInternalType('float', $fixData[$tBaseData['var']]);

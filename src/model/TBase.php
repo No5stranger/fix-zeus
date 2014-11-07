@@ -12,8 +12,6 @@ use Faker\Provider\DateTime;
 
 class TBase
 {
-    private static $tmpFileName = "tmp_special";
-
     public static $tType = array(
         TType::BOOL => 'bool',
         TType::BYTE => '8integer',
@@ -41,10 +39,10 @@ class TBase
             return new Exception('unvalid value');
         }
 
-        if (($path = file_get_contents(__DIR__ . '/' . self::$tmpFileName))
-            && $sData = TSpecial::defineValue($path, $tspec['var'])
+        if (defined('PATH')
+            && $sData = TSpecial::defineValue(PATH, $tspec['var'])
         ) {
-            return array($tspec['var'] => $rData);
+            return array($tspec['var'] => $sData);
         }
 
         if ($rData = TSpecial::reviseData($tspec['var'])) {
@@ -65,7 +63,7 @@ class TBase
 
         switch ($tspec['type']) {
             case TType::BOOL:
-                return array($tspec['var'] => TSpecial::getBool());
+                return TSpecial::getBool();
                 break;
             case TType::DOUBLE:
                 return array($tspec['var'] => $base->randomFloat());
